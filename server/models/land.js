@@ -13,7 +13,7 @@ const landSchema = new mongoose.Schema({
     owner: {
         type: String,
         required: false,
-        default: 'none'
+        default: 'L&R.Ltd'
     },
     price: {
         type: String,

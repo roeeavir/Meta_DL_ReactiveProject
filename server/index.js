@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 
 import LandRoutes from './routes/lands.js';
+import {readLands} from './controllers/lands.js';
 
 const app = express();
 
@@ -18,7 +19,11 @@ const CONNECTION_URL = 'mongodb+srv://ReactiveSevel:EndlessSevel@cluster0.kiots.
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true})
-.then(() => app.listen(PORT, () => console.log(`Server running on port : ${PORT}`)))
+.then(() => app.listen(PORT, () => {
+    console.log(`Server running on port : ${PORT}`)
+    readLands()
+}
+))
 .catch((error) => console.log(error.message))
 
 
