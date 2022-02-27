@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const landSchema = new mongoose.Schema({
     id: {
@@ -21,4 +21,6 @@ const landSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Land', landSchema)
+const LandModel  = mongoose.model('Land', landSchema)
+
+export default LandModel
