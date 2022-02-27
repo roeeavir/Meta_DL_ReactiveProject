@@ -7,13 +7,12 @@ import LandRoutes from './routes/lands.js';
 
 const app = express();
 
-app.use('/lands', LandRoutes);
-
+app.use(cors())
 
 app.use(bodyParser.json({ limit: '50mb' , extended : true}));
 app.use(bodyParser.urlencoded({ limit: '50mb' , extended : true}));
 
-app.use(cors())
+app.use('/lands', LandRoutes);
 
 const CONNECTION_URL = 'mongodb+srv://ReactiveSevel:EndlessSevel@cluster0.kiots.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 const PORT = process.env.PORT || 5000;
