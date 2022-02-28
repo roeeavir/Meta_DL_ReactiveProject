@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import makeStyles from './styles'
 import { createPost } from '../../actions/posts'
 
-const Form = () => {
+const Register = () => {
     const [postData, setPostData] = useState({userName: '', password: ''})
     const classes = makeStyles()
     const dispatch = useDispatch()
@@ -34,4 +34,4 @@ const Form = () => {
     )
 }
 
-export default Form;
+export default Register;

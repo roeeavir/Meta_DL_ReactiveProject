@@ -5,7 +5,8 @@ import { useDispatch } from "react-redux";
 
 import { getPosts } from './actions/posts'
 import Posts from './components/Posts/Posts'
-import Form from './components/Form/Form'
+import Register from './components/Form/Register'
+import Login from './components/Form/Login'
 import memories from './images/memories.jpeg'
 import makeStyles from './styles'
 
@@ -31,7 +32,8 @@ const App = () => {
                         </Grid>
 
                         <Grid item xs={12} sm={4}>
-                            <Form />
+                            <Register />
+                            <Login/>
                         </Grid>
 
                     </Grid>
