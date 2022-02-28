@@ -26,7 +26,7 @@ export const createPost = (post) => async (dispatch) => {
 
 export const getUser = (user) => async (dispatch) => {
     try {
-        console.log(user)
+        console.log("user: ", user)
         const {data} = await api.fetchUser(user);
 
         console.log(data)

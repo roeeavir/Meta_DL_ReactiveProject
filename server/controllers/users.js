@@ -31,7 +31,11 @@ export const registerUser = (req, res) => {
 }
 
 export const login = (req, res) => {
-    console.log("Sevel " + req.params.userName)
+    console.log("Sevel name " + req.params.userName)
+    console.log("Sevel pass " + req.params.password)
+
+    const password = req.query['password']
+    console.log("Sevel pass2 " + password)
     try {
         UserModel.findOne({
             userName: req.params.userName
@@ -42,8 +46,8 @@ export const login = (req, res) => {
                     userName: "User or Password are incorrect1"
                 })
             } else {
-                console.log("new sevel2 " + req.params.password)
-                if (user.password != req.params.password) {
+                console.log("new sevel2 " + password)
+                if (user.password != password) {
                     return res.status(400).json({
                         password: "User or Password are incorrect2"
                     })
