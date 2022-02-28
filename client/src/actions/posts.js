@@ -23,3 +23,13 @@ export const createPost = (post) => async (dispatch) => {
         console.log(error.message)
     }
 }
+
+export const getUser = (post) => async (dispatch) => {
+    try {
+        const {data} = await api.fetchUser(post.userName);
+
+        dispatch({type: 'FETCH_USER', payload : []})
+    } catch (error) {
+        console.log(error.message)
+    }
+}
