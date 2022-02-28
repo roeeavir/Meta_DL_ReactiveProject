@@ -7,6 +7,7 @@ import { getPosts } from './actions/posts'
 import Posts from './components/Posts/Posts'
 import Register from './components/Form/Register'
 import Login from './components/Form/Login'
+import Map from './components/Form/Map'
 import memories from './images/memories.jpeg'
 import makeStyles from './styles'
 
@@ -39,6 +40,7 @@ const App = () => {
                     </Grid>
                 </Container>
             </Grow>
+            <Map />
         </Container>
     )
 }

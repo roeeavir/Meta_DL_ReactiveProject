@@ -32,6 +32,7 @@ export const getUser = (user) => async (dispatch) => {
         console.log(data)
 
         dispatch({type: 'FETCH_USER', payload : data})
+        return true;
     } catch (error) {
         console.log(error.message)
     }

@@ -4,16 +4,23 @@ import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 import makeStyles from './styles'
 import { getUser, getPosts } from '../../actions/posts'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const Form = () => {
     const [postData, setPostData] = useState({userName: '', password: ''})
+    const [show, setShow] = useState(true);
     const classes = makeStyles()
     const dispatch = useDispatch()
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        dispatch(getUser(postData))
+        dispatch(getUser(postData)).then((bool) => {
+            if (bool)
+                setShow((s) => !s)
+        })
+
+        
     }
 
     const clear = () => {
@@ -29,9 +36,20 @@ const Form = () => {
                 <Button className={classes.buttonSubmit} variant="contained" color="primary" type="submit" size="large" fullWidth>Login</Button>
                 <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
             </form>
+            <div>
+                <button style={{ display: show ? "none" : "block" }}>Move to map page</button>
+            </div>
         </Paper>
+
+        
         // <h1 className={classes.form}>FORM</h1>
     )
 }
+
+const Map = () => (
+  <div>
+    <h2>About</h2>
+  </div>
+);
 
 export default Form;
