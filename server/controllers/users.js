@@ -31,12 +31,8 @@ export const registerUser = (req, res) => {
 }
 
 export const login = (req, res) => {
-    console.log("Sevel name " + req.params.userName)
-    console.log("Sevel pass " + req.params.password)
-
-    const password = req.query['password']
-    console.log("Sevel pass2 " + password)
     try {
+    const password = req.query['password']
         UserModel.findOne({
             userName: req.params.userName
         }).then((user) => {
