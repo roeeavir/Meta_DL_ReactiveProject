@@ -8,7 +8,7 @@ export const getPosts = () => async (dispatch) => {
     try {
         const {data} = await api.fetchPosts();
 
-        dispatch({type: 'FETCH_POSTS', payload : []})
+        dispatch({type: 'FETCH_POSTS', payload : data})
     } catch (error) {
         console.log(error.message)
     }
@@ -24,11 +24,14 @@ export const createPost = (post) => async (dispatch) => {
     }
 }
 
-export const getUser = (post) => async (dispatch) => {
+export const getUser = (user) => async (dispatch) => {
     try {
-        const {data} = await api.fetchUser(post.userName);
+        console.log(user)
+        const {data} = await api.fetchUser(user);
 
-        dispatch({type: 'FETCH_USER', payload : []})
+        console.log(data)
+
+        dispatch({type: 'FETCH_USER', payload : data})
     } catch (error) {
         console.log(error.message)
     }

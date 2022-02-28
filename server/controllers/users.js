@@ -31,15 +31,30 @@ export const registerUser = (req, res) => {
 }
 
 export const login = (req, res) => {
-    UserModel.findOne({userName: req.body.userName}).then((user) => {
-        if (!user) {
-            return res.status(404).json({userName: "User or Password is incorrect"})
-        } else {
-            if (user.password !== req.body.password) {
-                return res.status(400).json({password: "User or Password is incorrect"})
+    console.log("Sevel " + req.params.userName)
+    try {
+        UserModel.findOne({
+            userName: req.params.userName
+        }).then((user) => {
+            console.log("new sevel " + user.userName)
+            if (user == null) {
+                return res.status(404).json({
+                    userName: "User or Password are incorrect1"
+                })
             } else {
-                return res.status(200).json({msg:user})
+                console.log("new sevel2 " + req.params.password)
+                if (user.password != req.params.password) {
+                    return res.status(400).json({
+                        password: "User or Password are incorrect2"
+                    })
+                } else {
+                    return res.status(200).json({
+                        msg: user
+                    })
+                }
             }
-        }
-    })
+        })
+    } catch (error) {
+        console.log(error)
+    }
 }

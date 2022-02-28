@@ -12,7 +12,7 @@ const router = express.Router();
 // router.post('/', postLand)
 
 router.get('/', getUsers)
-router.get('/userName', login)
+router.get('/:userName', login)
 router.post('/', registerUser)
 
 
