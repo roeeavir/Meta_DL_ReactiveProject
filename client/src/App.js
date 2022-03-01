@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core'
 import { useDispatch } from "react-redux";
 
@@ -14,10 +14,25 @@ import makeStyles from './styles'
 const App = () => {
     const classes = makeStyles()
     const dispatch = useDispatch()
+    const [show, setShow] = useState(true);
 
     useEffect(() => {
         dispatch(getPosts())
     }, [dispatch])
+
+    const toggleForm = (e) => {
+        e.preventDefault()
+
+        console.log('toggleForm')
+
+        setShow((s) => !s)
+
+        if (document.getElementsByClassName('toggle').val != 'Login') {
+            document.getElementsByClassName('toggle').val = 'Login'
+        } else {
+            document.getElementsByClassName('toggle').val = 'Register'
+        }
+    }
 
     return (
         <Container maxWidth="lg">
@@ -25,16 +40,22 @@ const App = () => {
                 <Typography className={classes.heading} variant="h6">Memories</Typography>
                     <img className={classes.image} src={memories} alt="memories" height="60"/>
             </AppBar>
+                    
             <Grow in>
                 <Container>
+
                     <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
                         <Grid item xs={12} sm={7}>
                             <Posts />
                         </Grid>
-
-                        <Grid item xs={12} sm={4}>
-                            <Register />
-                            <Login/>
+                        <Grid item xs={1} sm={1}>
+                            <button className="toggle" onClick={toggleForm}>Register</button>
+                        </Grid>
+                        <Grid item xs={12} sm={4} style={{ display: show ? "block" : "none" }}>
+                            <Register  />
+                        </Grid>
+                        <Grid item xs={12} sm={4} style={{ display: show ? "none" : "block" }}>
+                            <Login />
                         </Grid>
 
                     </Grid>
