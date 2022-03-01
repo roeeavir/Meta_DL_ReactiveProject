@@ -3,11 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core'
 import { useDispatch } from "react-redux";
 
-import { getPosts } from './actions/posts'
+import { getPosts, getLands } from './actions/posts'
 import Posts from './components/Posts/Posts'
 import Register from './components/Form/Register'
 import Login from './components/Form/Login'
-import Map from './components/Form/Map'
 import memories from './images/memories.jpeg'
 import makeStyles from './styles'
 
@@ -15,23 +14,25 @@ const App = () => {
     const classes = makeStyles()
     const dispatch = useDispatch()
     const [show, setShow] = useState(true);
+    const [text, setText] = useState("Switch to Login");
+    const [action, setAction] = useState("Lands");
 
     useEffect(() => {
-        dispatch(getPosts())
+        // if (action == "Users"){
+        //     dispatch(getPosts())
+        // }
+        // else {
+            dispatch(getLands())
+        // }
     }, [dispatch])
 
     const toggleForm = (e) => {
         e.preventDefault()
 
-        console.log('toggleForm')
-
         setShow((s) => !s)
 
-        if (document.getElementsByClassName('toggle').val != 'Login') {
-            document.getElementsByClassName('toggle').val = 'Login'
-        } else {
-            document.getElementsByClassName('toggle').val = 'Register'
-        }
+        setText(text == "Switch to Register" ? "Switch to Login" : "Switch to Register")
+
     }
 
     return (
@@ -49,7 +50,7 @@ const App = () => {
                             <Posts />
                         </Grid>
                         <Grid item xs={1} sm={1}>
-                            <button className="toggle" onClick={toggleForm}>Register</button>
+                            <button className="toggle" onClick={toggleForm} >{text}</button>
                         </Grid>
                         <Grid item xs={12} sm={4} style={{ display: show ? "block" : "none" }}>
                             <Register  />
@@ -61,7 +62,6 @@ const App = () => {
                     </Grid>
                 </Container>
             </Grow>
-            <Map />
         </Container>
     )
 }
