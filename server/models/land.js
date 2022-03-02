@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const landSchema = new mongoose.Schema({
     id: {
-        type: String,
+        type: Number,
         required: true
     },
     type: {

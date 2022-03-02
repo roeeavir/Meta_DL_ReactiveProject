@@ -20,13 +20,13 @@
 
 #lands{
     overflow:scroll;
-    height: 600px;
+    height: 1100px;
     width: 800px;
 }
 
 .land{
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
 }
 
 .map {
@@ -34,12 +34,13 @@
 }
 
 #landBtn {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   background-color: #800040;
   border-radius: 50%;
   color: white;
   margin: 0 1rem;
+  padding: 0.5rem;
   overflow: hidden;
   text-align: center;
 }

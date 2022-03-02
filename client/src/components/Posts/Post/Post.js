@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import makeStyles from './styles'
 
 const Post = ({post}) => {
     const classes = makeStyles()
+    const [color, setColor] = useState("red");
+    const colors = {nland: "red", park: "green", road: "grey"}
+    let currentColor = colors[post.type]
+
+    console.log("currentColor ", currentColor)
 
     const getColor = () => {
         if (post.type == 'park') {
@@ -15,14 +20,12 @@ const Post = ({post}) => {
     }
 
     return (
-            <div className="land">
       <button
         id="landBtn"
-        style={{ background: {getColor}}}
+        style={{ backgroundColor: currentColor}}
       >
         {post.id}
       </button>
-    </div>
     )
 }
 
