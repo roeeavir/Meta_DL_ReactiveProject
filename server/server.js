@@ -3,9 +3,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
-import LandRoutes from './routes/lands.js';
-import UserRoutes from './routes/users.js';
-import {readLands} from './controllers/lands.js';
+import LandRoutes from './routes/landsRoute.js';
+import UserRoutes from './routes/usersRoute.js';
+import {readLands} from './controllers/landsController.js';
 
 const app = express();
 

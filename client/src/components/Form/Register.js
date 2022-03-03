@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
-import makeStyles from './styles'
-import { createPost } from '../../actions/posts'
+import makeStyles from './formStyles'
+import { createPost } from '../../actions/actions'
 
 const Register = () => {
     const [postData, setPostData] = useState({userName: '', password: ''})

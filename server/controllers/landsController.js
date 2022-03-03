@@ -1,4 +1,4 @@
-import LandModel from "../models/land.js"
+import LandModel from "../models/landModel.js"
 
 export const getLands = async (req, res) => {
     try {

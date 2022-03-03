@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core'
 import { useDispatch } from "react-redux";
 
-import { getPosts, getLands } from './actions/posts'
-import Posts from './components/Posts/Posts'
+import { getPosts, getLands } from './actions/actions'
+import Map from './components/Map/Map'
 import Register from './components/Form/Register'
 import Login from './components/Form/Login'
 import memories from './images/memories.jpeg'
-import makeStyles from './styles'
+import makeStyles from './appStyles'
 
 const App = () => {
     const classes = makeStyles()
@@ -47,7 +47,7 @@ const App = () => {
 
                     <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
                         <Grid item xs={12} sm={7}>
-                            <Posts />
+                            <Map />
                         </Grid>
                         <Grid item xs={1} sm={1}>
                             <button className="toggle" onClick={toggleForm} >{text}</button>

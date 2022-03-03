@@ -1,15 +1,15 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { useSelector } from 'react-redux';
-import Post from './Post/Post';
-import makeStyles from './styles'
+import Land from './Land/Land';
+import makeStyles from './mapStyles'
 import './styles.css'
 
-const Posts = () => {
-    const posts = useSelector((state) => state.posts);
+const Map = () => {
+    const lands = useSelector((state) => state.reducer);
     const classes = makeStyles()
 
-    console.log("posts ", posts);
+    console.log("posts ", lands);
     
     return (
         <>
@@ -23,9 +23,9 @@ const Posts = () => {
         </div> */}
         <div id="lands">
             <ul id="landsMap">
-                        {posts.map((post) => (
+                        {lands.map((post) => (
                 <li key={post._id}>
-                    <Post post={post} item/>
+                    <Land post={post} item/>
                 </li>
                 ))}
             </ul>
@@ -42,4 +42,4 @@ const Posts = () => {
     )
 }
 
-export default Posts;
+export default Map;

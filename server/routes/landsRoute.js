@@ -1,6 +1,6 @@
 import express from 'express';
 
-import {getLands, postLand} from '../controllers/lands.js';
+import {getLands, postLand} from '../controllers/landsController.js';
 
 
 const router = express.Router();
