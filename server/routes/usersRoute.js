@@ -8,8 +8,8 @@ import bcrypt  from "bcryptjs";
 import jwt  from "jsonwebtoken";
 import User  from "../models/userModel.js";
 import auth from "../helpers/auth.js";
-// router.get('/', getUsers)
-// router.get('/:userName', login)
+router.get('/', getUsers)
+router.get('/:userName', login)
 // router.post('/', registerUser)
 
 /**
@@ -88,36 +88,28 @@ router.post(
 
 router.post(
   "/login",
-  [
-    check("username", "Please Enter a Valid Username")
-      .not()
-      .isEmpty(),
-    check("password", "Please enter a valid password").isLength({
-      min: 6
-    })
-  ],
   async (req, res) => {
     const errors = validationResult(req);
-
+    console.log("errors", errors)
     if (!errors.isEmpty()) {
-      return res.status(400).json({
+      return res.status(401).json({
         errors: errors.array()
       });
     }
 
-    const { username, password } = req.body;
+    const { userName, password } = req.body;
     try {
       let user = await User.findOne({
-        userName : username
+        userName: userName
       });
       if (!user)
-        return res.status(400).json({
+        return res.status(402).json({
           message: "User Not Exist"
         });
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch)
-        return res.status(400).json({
+        return res.status(403).json({
           message: "Incorrect Password !"
         });
 

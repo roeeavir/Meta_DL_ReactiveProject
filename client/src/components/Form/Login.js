@@ -3,7 +3,7 @@ import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 import makeStyles from './formStyles'
-import { getUser, getPosts } from '../../actions/actions'
+import { getUser, getPosts, getLands } from '../../actions/actions'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const Form = () => {
@@ -15,12 +15,15 @@ const Form = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
+
         dispatch(getUser(postData)).then((bool) => {
-            if (bool)
-                setShow((s) => !s)
+            console.log("User: ", bool);
+            if (bool) {
+                dispatch(getLands())
+            }
         })
 
-        
+
     }
 
     const clear = () => {

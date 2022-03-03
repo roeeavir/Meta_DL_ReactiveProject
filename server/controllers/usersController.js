@@ -36,7 +36,7 @@ export const login = (req, res) => {
         UserModel.findOne({
             userName: req.params.userName
         }).then((user) => {
-            console.log("new sevel " + user.userName)
+            // console.log("new sevel " + user.userName)
             if (user == null) {
                 return res.status(404).json({
                     userName: "User or Password are incorrect1"

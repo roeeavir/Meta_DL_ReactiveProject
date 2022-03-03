@@ -15,16 +15,19 @@ const App = () => {
     const dispatch = useDispatch()
     const [show, setShow] = useState(true);
     const [text, setText] = useState("Switch to Login");
-    const [action, setAction] = useState("Lands");
+    const [action, setAction] = useState("Users");
 
     useEffect(() => {
-        // if (action == "Users"){
+        if (action == "Users"){
+            console.log("getPosts")
             dispatch(getPosts())
-        // }
-        // else {
-        //     dispatch(getLands())
-        //     setAction("Users")
-        // }
+            setAction("Posts")
+        }
+        else {
+            console.log("getLands")
+            dispatch(getLands())
+            setAction("Users")
+        }
     }, [dispatch])
 
     const toggleForm = (e) => {

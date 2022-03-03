@@ -3,7 +3,7 @@ import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 import makeStyles from './formStyles'
-import { createPost } from '../../actions/actions'
+import { createPost, getPosts } from '../../actions/actions'
 
 const Register = () => {
     const [postData, setPostData] = useState({userName: '', password: ''})
@@ -12,7 +12,7 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
+        dispatch(getPosts())
         dispatch(createPost(postData))
     }
 
