@@ -19,10 +19,11 @@ const App = () => {
 
     useEffect(() => {
         // if (action == "Users"){
-        //     dispatch(getPosts())
+            dispatch(getPosts())
         // }
         // else {
-            dispatch(getLands())
+        //     dispatch(getLands())
+        //     setAction("Users")
         // }
     }, [dispatch])
 
@@ -46,9 +47,7 @@ const App = () => {
                 <Container>
 
                     <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
-                        <Grid item xs={12} sm={7}>
-                            <Map />
-                        </Grid>
+                        
                         <Grid item xs={1} sm={1}>
                             <button className="toggle" onClick={toggleForm} >{text}</button>
                         </Grid>
@@ -57,6 +56,9 @@ const App = () => {
                         </Grid>
                         <Grid item xs={12} sm={4} style={{ display: show ? "none" : "block" }}>
                             <Login />
+                        </Grid>
+                        <Grid item xs={12} sm={7}>
+                            <Map />
                         </Grid>
 
                     </Grid>

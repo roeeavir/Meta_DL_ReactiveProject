@@ -6,7 +6,6 @@ import mongoose from 'mongoose';
 import LandRoutes from './routes/landsRoute.js';
 import UserRoutes from './routes/usersRoute.js';
 import {readLands} from './controllers/landsController.js';
-
 const app = express();
 
 app.use(cors())
