@@ -11,6 +11,8 @@ const Form = () => {
     const [text, setText] = useState("Login as Guest");
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [show, setShow] = useState(true);
     const classes = makeStyles()
     const dispatch = useDispatch()
 
@@ -21,6 +23,7 @@ const Form = () => {
         dispatch(getUser(postData)).then((bool) => {
             console.log("User: ", bool);
             if (bool) {
+                setLoggedIn(true);
                 dispatch(getLands())
             }
         })
@@ -34,23 +37,38 @@ const Form = () => {
         } else {
             setText("Login as Registered User")
         }
+
+        if (loggedIn) {
+            setShow(false)
+        } else {
+            setShow(true)
+        }
     })
 
     const clear = () => {
         setPostData({userName: '', password: ''})
     }
 
-    const saveUserName = async (e) => {
-        await setUserName(e.target.value)
+    const saveUserName = (e) => {
+        setUserName(e.target.value)
     }
 
-    const savePassword = async (e) => {
-        await setPassword(e.target.value)
+    const savePassword = (e) => {
+        setPassword(e.target.value)
+    }
+
+    const handleLogout = () => {
+        setLoggedIn(false)
+        setUserName("")
+        setPassword("")
+        setPostData({userName: '', password: ''})
+        setText("Login as Guest")
+        dispatch(getPosts())
     }
 
     return (
         <Paper className={classes.paper}>
-            <form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+            <form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit} style={{ display: show ? "block" : "none" }}>
                 <Typography variant='h6'>Login</Typography>
                 <TextField name="userName" variant="outlined" label="UserName" fullWidth value={postData.userName} onChange={(e) => {
                     setPostData({...postData, userName: e.target.value})
@@ -64,17 +82,10 @@ const Form = () => {
                 <Button className={classes.buttonSubmit} variant="contained" color="primary" type="submit" size="large" fullWidth>{text}</Button>
                 <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
             </form>
+            <Button className={classes.buttonSubmit} variant="contained" color="primary" onClick={handleLogout} size="large" style={{ display: show ? "none" : "block" }} fullWidth>Logout</Button>
         </Paper>
 
-        
-        // <h1 className={classes.form}>FORM</h1>
     )
 }
-
-const Map = () => (
-  <div>
-    <h2>About</h2>
-  </div>
-);
 
 export default Form;

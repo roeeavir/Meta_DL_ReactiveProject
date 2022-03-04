@@ -17,7 +17,8 @@ const landSchema = new mongoose.Schema({
     },
     price: {
         type: String,
-        required: true,
+        required: false,
+        default: 'N/A'
     }
 })
 

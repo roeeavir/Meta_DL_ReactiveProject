@@ -40,9 +40,9 @@ const App = () => {
     }
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
             <AppBar className={classes.appBar} position="static" color="inherit">
-                <Typography className={classes.heading} variant="h6">Memories</Typography>
+                <Typography className={classes.heading} variant="h6">SevelLand</Typography>
                     <img className={classes.image} src={memories} alt="memories" height="60"/>
             </AppBar>
                     
@@ -50,16 +50,18 @@ const App = () => {
                 <Container>
 
                     <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
-                        
-                        <Grid item xs={1} sm={1}>
-                            <button className="toggle" onClick={toggleForm} >{text}</button>
+                        <Grid item xs={10} sm={10}>
+                            <Grid item xs={1} sm={1}>
+                                <button className="toggle" onClick={toggleForm} >{text}</button>
+                            </Grid>
+                            <Grid item xs={12} sm={4} style={{ display: show ? "block" : "none" }}>
+                                <Register  />
+                            </Grid>
+                            <Grid item xs={12} sm={4} style={{ display: show ? "none" : "block" }}>
+                                <Login />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={4} style={{ display: show ? "block" : "none" }}>
-                            <Register  />
-                        </Grid>
-                        <Grid item xs={12} sm={4} style={{ display: show ? "none" : "block" }}>
-                            <Login />
-                        </Grid>
+
                         <Grid item xs={12} sm={7}>
                             <Map />
                         </Grid>

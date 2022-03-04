@@ -92,9 +92,9 @@ async function createAndInsertMapToDataBase() {
         for (let j = 0; j < 100; j++) {
             let id = 100 * i + j + 1
             if (i == 0 || j == 0 || i == 99 || j == 99|| i % 10 == 0 || j % 25 == 0) {
-                saveLandToDataBase(id, "road", "0")
-            } else if (i >= 20 && i <= 25 && j >= 20 && j <= 25 || i >= 70 && i <= 75 && j >= 70 && j <= 75) {
-                saveLandToDataBase(id, "park", "0")
+                saveLandToDataBase(id, "road")
+            } else if (i >= 20 && i <= 29 && j >= 1 && j <= 25 || i >= 70 && i <= 79 && j >= 51 && j <= 75) {
+                saveLandToDataBase(id, "park")
             } else {
                 let price = Math.floor(Math.random() * 200) + 15;
                 saveLandToDataBase(id, "nland", price)
