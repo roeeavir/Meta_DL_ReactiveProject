@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
@@ -8,7 +8,9 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const Form = () => {
     const [postData, setPostData] = useState({userName: '', password: ''})
-    const [show, setShow] = useState(true);
+    const [text, setText] = useState("Login as Guest");
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
     const classes = makeStyles()
     const dispatch = useDispatch()
 
@@ -26,22 +28,42 @@ const Form = () => {
 
     }
 
+    useEffect(() => {
+        if (userName == "" && password == "") {
+            setText("Login as Guest")
+        } else {
+            setText("Login as Registered User")
+        }
+    })
+
     const clear = () => {
         setPostData({userName: '', password: ''})
+    }
+
+    const saveUserName = async (e) => {
+        await setUserName(e.target.value)
+    }
+
+    const savePassword = async (e) => {
+        await setPassword(e.target.value)
     }
 
     return (
         <Paper className={classes.paper}>
             <form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant='h6'>Login</Typography>
-                <TextField name="userName" variant="outlined" label="UserName" fullWidth value={postData.userName} onChange={(e) => setPostData({...postData, userName: e.target.value})}/>
-                <TextField name="password" variant="outlined" label="Password" fullWidth value={postData.password} onChange={(e) => setPostData({...postData, password: e.target.value})}/>
-                <Button className={classes.buttonSubmit} variant="contained" color="primary" type="submit" size="large" fullWidth>Login</Button>
+                <TextField name="userName" variant="outlined" label="UserName" fullWidth value={postData.userName} onChange={(e) => {
+                    setPostData({...postData, userName: e.target.value})
+                    saveUserName(e)
+                    }}/>
+                <TextField name="password" variant="outlined" label="Password" fullWidth value={postData.password} onChange={(e) => {
+                    setPostData({...postData, password: e.target.value})
+                    savePassword(e)
+                    }
+                }/>
+                <Button className={classes.buttonSubmit} variant="contained" color="primary" type="submit" size="large" fullWidth>{text}</Button>
                 <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
             </form>
-            <div>
-                <button style={{ display: show ? "none" : "block" }}>Move to map page</button>
-            </div>
         </Paper>
 
         

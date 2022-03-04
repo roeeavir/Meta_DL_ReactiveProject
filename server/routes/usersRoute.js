@@ -99,6 +99,11 @@ router.post(
 
     const { userName, password } = req.body;
     try {
+      if (userName == "" && password == "") {
+          return res.status(200).json({
+            "msg": "Logged in as guest"
+          });
+        }
       let user = await User.findOne({
         userName: userName
       });
