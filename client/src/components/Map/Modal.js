@@ -1,7 +1,7 @@
 import React,{ useState , useEffect} from "react";
 import {getUserToken} from '../Form/Login'
 import { useDispatch } from 'react-redux';
-import { getUserByToken } from "../../actions/actions";
+import { getUserByToken, getLands } from "../../actions/actions";
 
 
 
@@ -10,13 +10,10 @@ function Modal(props) {
   const dispatch = useDispatch()
 
 
-  useEffect(() => {
+  useEffect(async () => {
     setUserToken(getUserToken());
-    dispatch(getUserByToken(userToken)).then((loginRes) => {
-      if (loginRes) {
-        console.log("Token: ", loginRes);
-      }
-    })
+    let user = dispatch(getUserByToken(userToken))
+    console.log("User : ", user)
   }, [])
 
 

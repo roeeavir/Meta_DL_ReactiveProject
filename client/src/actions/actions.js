@@ -51,8 +51,8 @@ export const getLands = () => async (dispatch) => {
     const { data } = await api.fetchLands();
 
     dispatch({
-      type: "FETCH_POSTS",
-      payload: data,
+        type: "FETCH_POSTS",
+        payload: data,
     });
   } catch (error) {
     console.log(error.message);
@@ -61,12 +61,16 @@ export const getLands = () => async (dispatch) => {
 
 export const getUserByToken = (token) => async (dispatch) => {
     try {
+        console.log("SHIKSE: ", token);
         const { data } = await api.fetchUserByToken(token);
+
+        console.log(data);
     
         dispatch({
-        type: "FETCH_USER",
-        payload: data,
+            type: "FETCH_USER",
+            payload: data,
         });
+        return data;
     } catch (error) {
         console.log(error.message);
     }

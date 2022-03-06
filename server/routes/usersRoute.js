@@ -9,7 +9,7 @@ import jwt  from "jsonwebtoken";
 import User  from "../models/userModel.js";
 import auth from "../helpers/auth.js";
 router.get('/', getUsers)
-router.get('/:userName', login)
+// router.get('/:userName', login)
 // router.post('/', registerUser)
 
 /**
@@ -153,10 +153,11 @@ router.post(
  * @param - /users/me
  */
 
-router.get("/me",  async (req, res) => {
+router.get("/me", async (req, res) => {
   try {
+    console.log("Yese")
     const token = req.query['token']
-    console.log("req.user ", req.user)
+    console.log("req.user ", token)
     // request.user is getting fetched from Middleware after token authentication
     const user = await User.findOne({token : token});
     res.json(user);

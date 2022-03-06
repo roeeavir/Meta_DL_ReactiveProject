@@ -15,4 +15,4 @@ export const fetchUser = (user) => axios.post(`${loginUrl}`, user);
 
 export const fetchLands = () => axios.get(landsUrl);
 
-export const fetchUserByToken = (token) => axios.get(`${meUrl}`, {params: {token: token}});
+export const fetchUserByToken = (token) => axios.get(meUrl, token);
