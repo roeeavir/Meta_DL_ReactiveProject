@@ -36,6 +36,8 @@ const Land = ({ post }) => {
           landType={post.type}
           landOwner={post.owner}
           landPrice={post.price}
+          landForSale={post.isForSale ? "Yes" : "No"}
+          landGame={post.game}
           onCancel={closeModalHandler}
         />
       )}

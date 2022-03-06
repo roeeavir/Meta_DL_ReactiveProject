@@ -8,14 +8,16 @@ function Modal(props) {
     if (props.landPrice != "N/A"){
 
     } else {
-      
+
     }
     return (
       <div className='modal'>
-        <p>ID:{props.landId}</p>
-        <p>Type:{props.landType}</p>
-        <p>Owner:{props.landOwner}</p>
-        <p>Price:{props.landPrice}</p>
+        <p>ID: {props.landId}</p>
+        <p>Type: {props.landType}</p>
+        <p>Owner: {props.landOwner}</p>
+        <p>Price: {props.landPrice}</p>
+        <p>For Sale: {props.landForSale}</p>
+        <p>Game: {props.landGame}</p>
         <button className='btn btn--alt' onClick={cancelHandler}>
           Cancel
         </button>
