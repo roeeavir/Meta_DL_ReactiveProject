@@ -58,3 +58,16 @@ export const getLands = () => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const getUserByToken = (token) => async (dispatch) => {
+    try {
+        const { data } = await api.fetchUserByToken(token);
+    
+        dispatch({
+        type: "FETCH_USER",
+        payload: data,
+        });
+    } catch (error) {
+        console.log(error.message);
+    }
+    }

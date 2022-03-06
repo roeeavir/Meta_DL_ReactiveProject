@@ -32,7 +32,6 @@ const Form = () => {
 
 
         dispatch(getUser(postData)).then((loginRes) => {
-            console.log("User: ", loginRes);
             if (loginRes) {
                 setToken(loginRes.token);
                 setUserToken(loginRes.token);
