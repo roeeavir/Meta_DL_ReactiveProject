@@ -5,7 +5,11 @@ function Modal(props) {
         props.onCancel();
     }
 
+    if (props.landPrice != "N/A"){
 
+    } else {
+      
+    }
     return (
       <div className='modal'>
         <p>ID:{props.landId}</p>

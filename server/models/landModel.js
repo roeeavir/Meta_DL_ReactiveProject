@@ -19,7 +19,16 @@ const landSchema = new mongoose.Schema({
         type: String,
         required: false,
         default: 'N/A'
-    }
+    }, 
+    isForSale: {
+        type: Boolean,
+        default: false
+    },
+    game: {
+        type: String,
+        required: false,
+        default: 'N/A'
+    },
 })
 
 const LandModel  = mongoose.model('Land', landSchema)

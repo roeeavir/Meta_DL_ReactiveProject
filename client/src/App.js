@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { getPosts, getLands } from './actions/actions'
 import Map from './components/Map/Map'
 import Register from './components/Form/Register'
-import Login, {getUserToken} from './components/Form/Login'
+import Login from './components/Form/Login'
 import memories from './images/memories.jpeg'
 import makeStyles from './appStyles'
 
@@ -16,21 +16,11 @@ const App = () => {
     const [show, setShow] = useState(true);
     const [text, setText] = useState("Switch to Login");
     const [action, setAction] = useState("Users");
-    const userToken = undefined
 
     useEffect(() => {
-        if (action == "Users"){
-            console.log("getPosts")
-            dispatch(getPosts())
-            setAction("Posts")
-        }
-        else {
-            console.log("getLands")
-            userToken = getUserToken()
-            console.log("Token: ", userToken)
-            dispatch(getLands())
-            setAction("Users")
-        }
+        console.log("getPosts")
+        dispatch(getPosts())
+        setAction("Posts")
     }, [dispatch])
 
     const toggleForm = (e) => {
@@ -39,8 +29,6 @@ const App = () => {
         setShow((s) => !s)
 
         setText(text == "Switch to Register" ? "Switch to Login" : "Switch to Register")
-
-        console.log("Token: ", userToken)
 
     }
 

@@ -63,41 +63,23 @@ export async function readLands() {
 
 async function createAndInsertMapToDataBase() {
     // var map = [];
-    var indexes = [];
-    var indexes2 = [];
-    let counter = 0;
-    for (let i = 0; i < 20; i++) {
-        indexes.push([0 + ";" + i]);
-        indexes.push([i + ";" + 0]);
-        indexes.push([i + ";" + 11]);
-        indexes2.push([19 + ";" + i]);
-        indexes2.push([19 - i + ";" + 19]);
-        indexes2.push([19 - i + ";" + 8]);
-        // indexes2.push([0 + ";" + (19 - i)])
-        // indexes2.push([(19-i) + ";" + 0])
-        // indexes2.push([(19-i) + ";" + i])
-    }
-    for (let i = 3; i < 18; i++) {
-        indexes.push([5 + ";" + i]);
-        indexes.push([9 + ";" + i]);
-        indexes.push([13 + ";" + i]);
-        indexes2.push([14 + ";" + i]);
-        indexes2.push([10 + ";" + i]);
-        indexes2.push([6 + ";" + i]);
-    }
 
     // print indexes to console
 
     for (let i = 0; i < 100; i++) {
         for (let j = 0; j < 100; j++) {
             let id = 100 * i + j + 1
-            if (i == 0 || j == 0 || i == 99 || j == 99|| i % 10 == 0 || j % 25 == 0) {
-                saveLandToDataBase(id, "road")
-            } else if (i >= 20 && i <= 29 && j >= 1 && j <= 25 || i >= 70 && i <= 79 && j >= 51 && j <= 75) {
+            if (i >= 20 && i <= 40 && j >= 1 && j <= 25 || i >= 70 && i <= 90 && j >= 51 && j <= 75) {
                 saveLandToDataBase(id, "park")
+            } else if (i == 0 || j == 0 || i == 99 || j == 99 || i % 10 == 0 || j % 25 == 0) {
+                 saveLandToDataBase(id, "road")
             } else {
                 let price = Math.floor(Math.random() * 200) + 15;
-                saveLandToDataBase(id, "nland", price)
+                if (i > 40 && i < 60 && j > 25 && j < 50) {
+                    saveLandToDataBase(id, "nland", price)
+                } else {
+                    saveLandToDataBase(id, "nland", price, true)
+                }
             }
         }
     }
@@ -142,11 +124,12 @@ async function createAndInsertMapToDataBase() {
 
 
 
-async function saveLandToDataBase(id, type, price) {
+async function saveLandToDataBase(id, type, price, isForSale = false) {
     let land = new LandModel({
         id: id,
         type: type,
-        price: price
+        price: price,
+        isForSale: isForSale
     })
 
     try {

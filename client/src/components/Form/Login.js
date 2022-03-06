@@ -4,8 +4,6 @@ import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 import makeStyles from './formStyles'
 import { getUser, getPosts, getLands } from '../../actions/actions'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
 
 var userToken = "";
 
@@ -76,6 +74,7 @@ const Form = () => {
 
     const handleLogout = () => {
         setToken(undefined)
+        setUserToken(token);
         setUserName("")
         setPassword("")
         setPostData({userName: '', password: ''})
