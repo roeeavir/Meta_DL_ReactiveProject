@@ -101,7 +101,8 @@ router.post(
     try {
       if (userName == "" && password == "") {
           return res.status(200).json({
-            "msg": "Logged in as guest"
+            "msg": "Logged in as guest",
+            "token": "guest"
           });
         }
       let user = await User.findOne({

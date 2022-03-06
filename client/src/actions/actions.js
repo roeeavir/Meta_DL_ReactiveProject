@@ -40,7 +40,7 @@ export const getUser = (user) => async (dispatch) => {
       type: "FETCH_USER",
       payload: data,
     });
-    return true;
+    return data;
   } catch (error) {
     console.log(error.message);
   }

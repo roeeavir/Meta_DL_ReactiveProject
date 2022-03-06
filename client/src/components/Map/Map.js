@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Grid } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import Land from './Land/Land';
@@ -14,7 +14,7 @@ const Map = () => {
     if (lands.length != 10000) {
         return (
             <div>
-                <h1>Loading...</h1>
+                <h1>Map loading or user isn't logged in</h1>
             </div>
         )
     } else {

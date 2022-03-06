@@ -16,6 +16,7 @@ const App = () => {
     const [show, setShow] = useState(true);
     const [text, setText] = useState("Switch to Login");
     const [action, setAction] = useState("Users");
+    const userToken = undefined
 
     useEffect(() => {
         if (action == "Users"){
@@ -25,6 +26,9 @@ const App = () => {
         }
         else {
             console.log("getLands")
+            // getUserToken().then(async (token) => {
+            //             userToken = token})
+            // console.log("Token: ", userToken)
             dispatch(getLands())
             setAction("Users")
         }

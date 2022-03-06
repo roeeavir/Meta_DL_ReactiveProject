@@ -6,13 +6,26 @@ import makeStyles from './formStyles'
 import { getUser, getPosts, getLands } from '../../actions/actions'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
+
+// const userToken = "";
+
+// export function getUserToken() {
+//     return userToken
+// }
+
+// function setUserToken(token) {
+//     userToken = token
+//     console.log("User Token: ", token)
+// }
+
+
 const Form = () => {
     const [postData, setPostData] = useState({userName: '', password: ''})
     const [text, setText] = useState("Login as Guest");
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const [loggedIn, setLoggedIn] = useState(false);
     const [show, setShow] = useState(true);
+    const [token, setToken] = useState("");
     const classes = makeStyles()
     const dispatch = useDispatch()
 
@@ -20,16 +33,20 @@ const Form = () => {
         e.preventDefault()
 
 
-        dispatch(getUser(postData)).then((bool) => {
-            console.log("User: ", bool);
-            if (bool) {
-                setLoggedIn(true);
+        dispatch(getUser(postData)).then((loginRes) => {
+            console.log("User: ", loginRes);
+            if (loginRes) {
+                setToken(loginRes.token);
+                // setUserToken(loginRes.token);
+                console.log("Token: ", loginRes);
                 dispatch(getLands())
             }
         })
 
 
     }
+
+
 
     useEffect(() => {
         if (userName == "" && password == "") {
@@ -38,7 +55,7 @@ const Form = () => {
             setText("Login as Registered User")
         }
 
-        if (loggedIn) {
+        if (token != undefined && token != "") {
             setShow(false)
         } else {
             setShow(true)
@@ -58,13 +75,15 @@ const Form = () => {
     }
 
     const handleLogout = () => {
-        setLoggedIn(false)
+        setToken(undefined)
         setUserName("")
         setPassword("")
         setPostData({userName: '', password: ''})
         setText("Login as Guest")
         dispatch(getPosts())
     }
+
+
 
     return (
         <Paper className={classes.paper}>
@@ -86,6 +105,12 @@ const Form = () => {
         </Paper>
 
     )
+
+    function getUserToken() {
+        return token
+    }
 }
+
+
 
 export default Form;
