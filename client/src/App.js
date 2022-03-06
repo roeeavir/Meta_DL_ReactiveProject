@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { getPosts, getLands } from './actions/actions'
 import Map from './components/Map/Map'
 import Register from './components/Form/Register'
-import Login from './components/Form/Login'
+import Login, {getUserToken} from './components/Form/Login'
 import memories from './images/memories.jpeg'
 import makeStyles from './appStyles'
 
@@ -26,9 +26,8 @@ const App = () => {
         }
         else {
             console.log("getLands")
-            // getUserToken().then(async (token) => {
-            //             userToken = token})
-            // console.log("Token: ", userToken)
+            userToken = getUserToken()
+            console.log("Token: ", userToken)
             dispatch(getLands())
             setAction("Users")
         }
@@ -40,6 +39,8 @@ const App = () => {
         setShow((s) => !s)
 
         setText(text == "Switch to Register" ? "Switch to Login" : "Switch to Register")
+
+        console.log("Token: ", userToken)
 
     }
 

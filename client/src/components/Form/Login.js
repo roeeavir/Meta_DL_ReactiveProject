@@ -7,16 +7,16 @@ import { getUser, getPosts, getLands } from '../../actions/actions'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
-// const userToken = "";
+var userToken = "";
 
-// export function getUserToken() {
-//     return userToken
-// }
+export function getUserToken() {
+    return userToken
+}
 
-// function setUserToken(token) {
-//     userToken = token
-//     console.log("User Token: ", token)
-// }
+async function setUserToken(token) {
+    userToken = token
+    console.log("User Token: ", token)
+}
 
 
 const Form = () => {
@@ -37,7 +37,7 @@ const Form = () => {
             console.log("User: ", loginRes);
             if (loginRes) {
                 setToken(loginRes.token);
-                // setUserToken(loginRes.token);
+                setUserToken(loginRes.token);
                 console.log("Token: ", loginRes);
                 dispatch(getLands())
             }
