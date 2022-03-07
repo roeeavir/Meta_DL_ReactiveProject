@@ -21,8 +21,6 @@ router.patch("/", getLandFromDataBase, async (req, res) => {
     try {
         const updatedSite = await res.land.save();
         res.json(updatedSite);
-        // if name changed, delete old HTML page and create new one
-        recreateHTMLPages();
     } catch (err) {
         res.status(400).json({
             message: err.message
