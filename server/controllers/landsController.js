@@ -7,8 +7,6 @@ export const getLands = async (req, res) => {
         };
         const lands = await LandModel.find({}).sort(mysort)
 
-        console.log(lands)
-
         return res.status(200).json(lands)
     } catch (error) {
         console.log(error)

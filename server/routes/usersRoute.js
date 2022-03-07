@@ -113,6 +113,8 @@ router.post(
           message: "User Not Exist"
         });
 
+      console.log("user ", user)
+
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch)
         return res.status(403).json({
@@ -153,16 +155,17 @@ router.post(
  * @param - /users/me
  */
 
-router.get("/me", async (req, res) => {
+router.get("/me", auth, async (req, res) => {
   try {
-    console.log("Yese")
-    const token = req.query['token']
-    console.log("req.user ", token)
     // request.user is getting fetched from Middleware after token authentication
-    const user = await User.findOne({token : token});
+    const user = await User.findById(req.user.id);
+    console.log("user", user);
     res.json(user);
+    return user
   } catch (e) {
-    res.send({ message: "Error in Fetching user" });
+    res.send({
+      message: "Error in Fetching user"
+    });
   }
 });
 

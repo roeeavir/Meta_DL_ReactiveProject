@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 
 export const auth = function(req, res, next) {
-  const token = req.header("token");
+  const token = req.query['token']
+  console.log("token: ", token);
   if (!token) return res.status(401).json({ message: "Auth Error" });
 
   try {

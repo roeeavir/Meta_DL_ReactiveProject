@@ -9,6 +9,7 @@ import Register from './components/Form/Register'
 import Login from './components/Form/Login'
 import memories from './images/memories.jpeg'
 import makeStyles from './appStyles'
+import './styles.css'
 
 const App = () => {
     const classes = makeStyles()

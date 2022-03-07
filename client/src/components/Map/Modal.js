@@ -12,7 +12,7 @@ function Modal(props) {
 
   useEffect(async () => {
     setUserToken(getUserToken());
-    let user = dispatch(getUserByToken(userToken))
+    let user = await dispatch(getUserByToken(userToken))
     console.log("User : ", user)
   }, [])
 
