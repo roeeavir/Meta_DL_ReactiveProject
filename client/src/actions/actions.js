@@ -72,10 +72,10 @@ export const getUserByToken = (token) => async (dispatch) => {
   }
 };
 
-export const updateLand = (land) => async (dispatch) => {
+export const updateLandPrice = (land) => async (dispatch) => {
   
   try {
-    const { data } = await api.updateLand(land);
+    const { data } = await api.updateLandPrice(land);
     console.log("land: ", land);
     dispatch({
       type: "UPDATE",
@@ -83,5 +83,23 @@ export const updateLand = (land) => async (dispatch) => {
     });
   } catch (error) {
     console.log(error.message);
+  }
+};
+
+export const updateLandForSale = (land) => async (dispatch) => {
+
+  try {
+    const {
+      data
+    } = await api.updateLandForSale(land);
+    console.log("land: ", land);
+    dispatch({
+      type: "UPDATE",
+      payload: data,
+    });
+    return true
+  } catch (error) {
+    console.log(error.message);
+    return false
   }
 };

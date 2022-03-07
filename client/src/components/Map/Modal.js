@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { getUserToken } from "../Form/Login";
 import { useDispatch } from "react-redux";
-import { getUserByToken, getLands, updateLand } from "../../actions/actions";
+import { getUserByToken, getLands, updateLandPrice, updateLandForSale } from "../../actions/actions";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import makeStyles from "../../components/Form/formStyles";
 
 function Modal(props) {
   const [userToken, setUserToken] = useState(getUserToken());
   const [userLandRelationship, setUserLandRelationship] = useState("");
-  const [price, setPrice] = useState("");
+  const [isLandForSaleOption, setIsLandForSaleOption] = useState("");
+  // const [price, setPrice] = useState("");
   const [postData, setPostData] = useState({
     id: props.landId,
     type: props.landType,
@@ -32,15 +33,32 @@ function Modal(props) {
     } else {
       setUserLandRelationship("Registered User");
     }
+    
+    setIsLandForSaleOption(props.landForSale == "No" ? "Yes" : "No");
   }, []);
 
-  const savePrice = (e) => {
-    setPrice(e.target.value);
-  };
-  const handleSubmit = (e) => {
+  // const savePrice = (e) => {
+  //   setPrice(e.target.value);
+  // };
+  // const savePrice = (e) => {
+  //   setPrice(e.target.value);
+  // };
+  const handleSubmitPrice = (e) => {
     e.preventDefault();
 
-    dispatch(updateLand(postData));
+    dispatch(updateLandPrice(postData));
+  };
+
+  const handleSubmitForSale = async (e) => {
+    e.preventDefault();
+
+    await setPostData({ ...postData, isForSale: postData.isForSale ? false : true });
+
+    dispatch(updateLandForSale(postData)).then((res) => {
+      if (res) {
+          setIsLandForSaleOption(postData.isForSale ? "No" : "Yes");
+      }
+    });
   };
 
   function cancelHandler() {
@@ -48,7 +66,7 @@ function Modal(props) {
     props.onCancel();
   }
 
-  if (!userLandRelationship) return null;
+  if (!userLandRelationship || !isLandForSaleOption) return null;
 
   // if (user == undefined || user == null || user == 'undefined') { // Guest - Can only view and play the game
   if (userLandRelationship == "Guest") {
@@ -81,7 +99,7 @@ function Modal(props) {
           autoComplete="off"
           noValidate
           className={`${classes.root} ${classes.form}`}
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmitPrice}
         >
           <TextField
             name="price"
@@ -90,7 +108,7 @@ function Modal(props) {
             fullWidth
             onChange={(e) => {
               setPostData({ ...postData, price: e.target.value });
-              savePrice(e);
+              // savePrice(e);
             }}
           />
           <Button
@@ -105,6 +123,23 @@ function Modal(props) {
           </Button>{" "}
         </form>
         <p>For Sale: {props.landForSale}</p>
+        <form
+          autoComplete="off"
+          noValidate
+          className={`${classes.root} ${classes.form}`}
+          onSubmit={handleSubmitForSale}
+        >
+          <Button
+            className={classes.buttonSubmit}
+            variant="contained"
+            color="primary"
+            type="submit"
+            size="large"
+            fullWidth
+          >
+            Change For Sale to: {isLandForSaleOption}
+          </Button>{" "}
+        </form>
         <p>Game: {props.landGame}</p>
         <button className="btn btn--alt" onClick={cancelHandler}>
           Cancel

@@ -30,7 +30,6 @@ const Form = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-
         dispatch(getUser(postData)).then((loginRes) => {
             if (loginRes) {
                 setToken(loginRes.token);
@@ -39,11 +38,7 @@ const Form = () => {
                 dispatch(getLands())
             }
         })
-
-
     }
-
-
 
     useEffect(() => {
         if (userName == "" && password == "") {
@@ -81,8 +76,6 @@ const Form = () => {
         dispatch(getPosts())
     }
 
-
-
     return (
         <Paper className={classes.paper}>
             <form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit} style={{ display: show ? "block" : "none" }}>
@@ -103,12 +96,6 @@ const Form = () => {
         </Paper>
 
     )
-
-    function getUserToken() {
-        return token
-    }
 }
-
-
 
 export default Form;
