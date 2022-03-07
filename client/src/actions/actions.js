@@ -34,8 +34,6 @@ export const getUser = (user) => async (dispatch) => {
     console.log("user: ", user);
     const { data } = await api.fetchUser(user);
 
-    console.log(data);
-
     dispatch({
       type: "FETCH_USER",
       payload: data,
@@ -64,8 +62,6 @@ export const getUserByToken = (token) => async (dispatch) => {
         console.log("SHIKSE: ", token);
         const { data } = await api.fetchUserByToken(token);
 
-        console.log(data);
-    
         dispatch({
             type: "FETCH_USER",
             payload: data,
