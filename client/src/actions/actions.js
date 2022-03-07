@@ -19,7 +19,7 @@ export const getPosts = () => async (dispatch) => {
 export const createPost = (post) => async (dispatch) => {
   try {
     const { data } = await api.createPost(post);
-    
+
     dispatch({
       type: "CREATE",
       payload: data,
@@ -49,8 +49,8 @@ export const getLands = () => async (dispatch) => {
     const { data } = await api.fetchLands();
 
     dispatch({
-        type: "FETCH_POSTS",
-        payload: data,
+      type: "FETCH_POSTS",
+      payload: data,
     });
   } catch (error) {
     console.log(error.message);
@@ -58,16 +58,30 @@ export const getLands = () => async (dispatch) => {
 };
 
 export const getUserByToken = (token) => async (dispatch) => {
-    try {
-        console.log("SHIKSE: ", token);
-        const { data } = await api.fetchUserByToken(token);
+  try {
+    console.log("SHIKSE: ", token);
+    const { data } = await api.fetchUserByToken(token);
 
-        dispatch({
-            type: "FETCH_USER",
-            payload: data,
-        });
-        return data;
-    } catch (error) {
-        console.log(error.message);
-    }
-    }
+    dispatch({
+      type: "FETCH_USER",
+      payload: data,
+    });
+    return data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const updateLand = (land) => async (dispatch) => {
+  
+  try {
+    const { data } = await api.updateLand(land);
+    console.log("land: ", land);
+    dispatch({
+      type: "UPDATE",
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};

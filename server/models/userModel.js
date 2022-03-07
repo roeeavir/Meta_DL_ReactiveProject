@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
 
+    },
+    cash:{
+        type: Number,
+        default: 1000
     }
 })
 

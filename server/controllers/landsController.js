@@ -31,6 +31,20 @@ export const postLand = (req, res) => {
         })
     }
 }
+export const updateLand = async (req, res) => {
+    const id = req.params.id
+    const post = req.body
+
+    try {
+        const land = await LandModel.findByIdAndUpdate(id, post)
+
+        res.status(200).json(land)
+    } catch (error) {
+        res.status(404).json({
+            message: "Error updating land"
+        })
+    }
+}
 
 export async function readLands() {
     console.log('readLands')
@@ -138,3 +152,15 @@ async function saveLandToDataBase(id, type, price, isForSale = false) {
     }
 
 }
+
+// async function getLandFromDataBase(id) {
+//     try {
+//         const land = await LandModel.findOne({
+//             id: id
+//         })
+//         return land
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
