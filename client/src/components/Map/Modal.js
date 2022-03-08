@@ -16,7 +16,7 @@ function Modal(props) {
     type: props.landType,
     owner: props.landOwner,
     price: props.landPrice,
-    isForSale: props.landForSale,
+    isForSale: props.isForSale === "Yes" ? true : false,
     game: props.landGame,
   });
   const dispatch = useDispatch();

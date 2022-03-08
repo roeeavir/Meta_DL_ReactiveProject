@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import makeStyles from "./landStyles";
 import Backdrop from "../Backdrop.js";
 import Modal from "../Modal.js";
+import { getColors } from "../../Legend/Legend";
 
 const Land = ({ post }) => {
   const classes = makeStyles();
-  const colors = { nland: "red", park: "green", road: "grey" };
+  const colors = getColors;
   let currentColor = setLandColor();
   let hasGame = post.game != "N/A" ? true : false;
   const [modalIsOpen, setModalIsOpen] = useState();

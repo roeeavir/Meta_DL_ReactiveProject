@@ -7,7 +7,9 @@ import { getPosts, getLands } from './actions/actions'
 import Map from './components/Map/Map'
 import Register from './components/Form/Register'
 import Login from './components/Form/Login'
+import Legend from './components/Legend/Legend'
 import memories from './images/memories.jpeg'
+import pic from './images/pic.jpg'
 import makeStyles from './appStyles'
 import './styles.css'
 
@@ -36,23 +38,25 @@ const App = () => {
     return (
         <Container maxWidth="xl">
             <AppBar className={classes.appBar} position="static" color="inherit">
-                <Typography className={classes.heading} variant="h6">SevelLand</Typography>
+                <Typography className={classes.heading} variant="h6">Meta_SevelLand</Typography>
                     <img className={classes.image} src={memories} alt="memories" height="60"/>
             </AppBar>
                     
             <Grow in>
                 <Container>
-
-                    <Grid container justifyContent="space-between" alignItems="stretch" spacing={3}>
-                        <Grid item xs={10} sm={10}>
-                            <Grid item xs={1} sm={1}>
-                                <button className="toggle" onClick={toggleForm} >{text}</button>
-                            </Grid>
-                            <Grid item xs={12} sm={4} style={{ display: show ? "block" : "none" }}>
-                                <Register  />
-                            </Grid>
-                            <Grid item xs={12} sm={4} style={{ display: show ? "none" : "block" }}>
-                                <Login />
+                    <Grid container justifyContent="space-between" alignItems="stretch" spacing={5}>
+                        <Grid className="rowC" justifyContent="space-between" item xs={10} sm={10} alignItems="stretch" spacing={3}>
+                                <Grid item xs={1} sm={1}>
+                                    <button className="toggle" onClick={toggleForm} >{text}</button>
+                                </Grid>
+                                <Grid item xs={12} sm={4} style={{ display: show ? "block" : "none" }}>
+                                    <Register  />
+                                </Grid>
+                                <Grid item xs={12} sm={4} style={{ display: show ? "none" : "block" }}>
+                                    <Login />
+                                </Grid>
+                            <Grid item xs={12} sm={4}>
+                                <Legend/>
                             </Grid>
                         </Grid>
 

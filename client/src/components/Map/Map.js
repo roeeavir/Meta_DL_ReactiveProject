@@ -14,7 +14,7 @@ const Map = () => {
     if (lands.length != 10000) {
         return (
             <div>
-                <h1>Map loading or user isn't logged in</h1>
+                <h1>Map is loading or user isn't logged in</h1>
             </div>
         )
     } else {

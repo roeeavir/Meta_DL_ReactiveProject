@@ -23,6 +23,7 @@
     height: 1000px;
     width: 1400px;
     background-image: linear-gradient(to bottom right, cyan, #00ff00);
+    border: 3px solid black;
 }
 
 .land{
@@ -108,3 +109,8 @@
   top: 0;
   left: 0;
 }
+
+.rowC{
+  display:flex;
+  flex-direction:row;
+  }
