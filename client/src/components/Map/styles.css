@@ -94,6 +94,9 @@
   position: fixed;
   top: 20vh;
   left: calc(50% - 15rem);
+  max-width: calc(100% - 2rem);
+  max-height: 500px;
+  overflow: scroll;
 }
 
 .backdrop {

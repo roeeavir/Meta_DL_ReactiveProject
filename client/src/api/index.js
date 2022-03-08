@@ -7,6 +7,7 @@ const loginUrl = 'http://localhost:5000/users/login';
 const meUrl = 'http://localhost:5000/users/me';
 const priceUrl = 'http://localhost:5000/lands/price';
 const forSaleUrl = 'http://localhost:5000/lands/forSale';
+const gameUrl = 'http://localhost:5000/lands/game';
 
 
 export const fetchPosts = () => axios.get(usersUrl);
@@ -22,3 +23,5 @@ export const fetchUserByToken = (token) => axios.get(meUrl, {params: {token: tok
 export const updateLandPrice = (land) => axios.patch(priceUrl, land);
 
 export const updateLandForSale = (land) => axios.patch(forSaleUrl, land);
+
+export const updateLandGame = (land) => axios.patch(gameUrl, land);

@@ -103,3 +103,21 @@ export const updateLandForSale = (land) => async (dispatch) => {
     return false
   }
 };
+
+export const updateLandGame = (land) => async (dispatch) => {
+
+  try {
+    const {
+      data
+    } = await api.updateLandGame(land);
+    console.log("land: ", land);
+    dispatch({
+      type: "UPDATE",
+      payload: data,
+    });
+    return true
+  } catch (error) {
+    console.log(error.message);
+    return false
+  }
+};

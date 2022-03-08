@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getUserToken } from "../Form/Login";
 import { useDispatch } from "react-redux";
-import { getUserByToken, getLands, updateLandPrice, updateLandForSale } from "../../actions/actions";
+import { getUserByToken, getLands, updateLandPrice, updateLandForSale, updateLandGame } from "../../actions/actions";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import makeStyles from "../../components/Form/formStyles";
 
@@ -9,14 +9,15 @@ function Modal(props) {
   const [userToken, setUserToken] = useState(getUserToken());
   const [userLandRelationship, setUserLandRelationship] = useState("");
   const [isLandForSaleOption, setIsLandForSaleOption] = useState("");
+  const [cashLeft, setCashLeft] = useState("");
   // const [price, setPrice] = useState("");
   const [postData, setPostData] = useState({
     id: props.landId,
     type: props.landType,
     owner: props.landOwner,
-    price: "",
-    isForSale: false,
-    game: "",
+    price: props.landPrice,
+    isForSale: props.landForSale,
+    game: props.landGame,
   });
   const dispatch = useDispatch();
   const classes = makeStyles();
@@ -30,19 +31,15 @@ function Modal(props) {
       setUserLandRelationship("Guest");
     } else if (user.userName == props.landOwner) {
       setUserLandRelationship("Land Owner");
+      setCashLeft(user.cash);
     } else {
       setUserLandRelationship("Registered User");
+      setCashLeft(user.cash);
     }
     
     setIsLandForSaleOption(props.landForSale == "No" ? "Yes" : "No");
   }, []);
 
-  // const savePrice = (e) => {
-  //   setPrice(e.target.value);
-  // };
-  // const savePrice = (e) => {
-  //   setPrice(e.target.value);
-  // };
   const handleSubmitPrice = (e) => {
     e.preventDefault();
 
@@ -61,6 +58,12 @@ function Modal(props) {
     });
   };
 
+  const handleSubmitGame = (e) => {
+    e.preventDefault();
+
+    dispatch(updateLandGame(postData));
+  };
+
   function cancelHandler() {
     user = {};
     props.onCancel();
@@ -72,7 +75,7 @@ function Modal(props) {
   if (userLandRelationship == "Guest") {
     return (
       <div className="modal">
-        <h3>{userLandRelationship}</h3>
+        <h2>{userLandRelationship}</h2>
         <br />
         <p>ID: {props.landId}</p>
         <p>Type: {props.landType}</p>
@@ -89,7 +92,8 @@ function Modal(props) {
     // Land owner - Controlls the land API
     return (
       <div className="modal">
-        <h3>{userLandRelationship}</h3>
+        <h2>{userLandRelationship}</h2>
+        <h3>Cash Left: {cashLeft}</h3>
         <br />
         <p>ID: {props.landId}</p>
         <p>Type: {props.landType}</p>
@@ -105,7 +109,8 @@ function Modal(props) {
             name="price"
             variant="outlined"
             label="price"
-            fullWidth
+            type="number"
+            width="50%"
             onChange={(e) => {
               setPostData({ ...postData, price: e.target.value });
               // savePrice(e);
@@ -117,7 +122,7 @@ function Modal(props) {
             color="primary"
             type="submit"
             size="large"
-            fullWidth
+            width="50%"
           >
             Change Price
           </Button>{" "}
@@ -135,12 +140,38 @@ function Modal(props) {
             color="primary"
             type="submit"
             size="large"
-            fullWidth
+            width="50%"
           >
             Change For Sale to: {isLandForSaleOption}
           </Button>{" "}
         </form>
         <p>Game: {props.landGame}</p>
+        <form
+          autoComplete="off"
+          noValidate
+          className={`${classes.root} ${classes.form}`}
+          onSubmit={handleSubmitGame}
+        >
+          <TextField
+            name="game"
+            variant="outlined"
+            label="game"
+            fullWidth
+            onChange={(e) => {
+              setPostData({ ...postData, game: e.target.value });
+            }}
+          />
+          <Button
+            className={classes.buttonSubmit}
+            variant="contained"
+            color="primary"
+            type="submit"
+            size="large"
+            width="50%"
+          >
+            Change Game
+          </Button>{" "}
+        </form>
         <button className="btn btn--alt" onClick={cancelHandler}>
           Cancel
         </button>
@@ -150,7 +181,8 @@ function Modal(props) {
     // Registered owner which does not own the land - Can buy land and play the game
     return (
       <div className="modal">
-        <h3>{userLandRelationship}</h3>
+        <h2>{userLandRelationship}</h2>
+        <h3>Cash Left: {cashLeft}</h3>
         <br />
         <p>ID: {props.landId}</p>
         <p>Type: {props.landType}</p>
@@ -158,6 +190,11 @@ function Modal(props) {
         <p>Price: {props.landPrice}</p>
         <p>For Sale: {props.landForSale}</p>
         <p>Game: {props.landGame}</p>
+        {props.landForSale == "Yes" && (
+          <button className="btn btn--alt" onClick={cancelHandler}>
+            Buy Land
+          </button>
+        )}
         <button className="btn btn--alt" onClick={cancelHandler}>
           Cancel
         </button>

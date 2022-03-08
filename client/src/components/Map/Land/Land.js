@@ -6,7 +6,8 @@ import Modal from "../Modal.js";
 const Land = ({ post }) => {
   const classes = makeStyles();
   const colors = { nland: "red", park: "green", road: "grey" };
-  let currentColor = colors[post.type];
+  let currentColor = setLandColor();
+  let hasGame = post.game != "N/A" ? true : false;
   const [modalIsOpen, setModalIsOpen] = useState();
 
   function deleteHandler() {
@@ -17,12 +18,27 @@ const Land = ({ post }) => {
     setModalIsOpen(false);
   }
 
+  function setLandColor() {
+    if (post.type === "nland") {
+      if (post.isForSale){
+        return "red";
+      } else {
+        return "pink";
+      }
+      return colors.nland;
+    } else if (post.type === "park") {
+      return "green"
+    } else if (post.type === "road") {
+      return "grey"
+    }
+  }
+
   return (
     <div className="land">
       <button
         id="landBtn"
         onClick={deleteHandler}
-        style={{ backgroundColor: currentColor }}
+        style={{ backgroundColor: currentColor, border: hasGame ? "1px solid black" : "none" }}
       >
         {post.id}
       </button>

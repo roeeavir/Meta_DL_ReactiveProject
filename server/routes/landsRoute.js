@@ -42,6 +42,18 @@ router.patch("/forSale", getLandFromDataBase, async (req, res) => {
   }
 });
 
+router.patch("/game", getLandFromDataBase, async (req, res) => {
+  res.land.game = req.body.game;
+  try {
+    const updatedLand = await res.land.save();
+    res.json(updatedLand);
+  } catch (err) {
+    res.status(400).json({
+      message: err.message
+    });
+  }
+});
+
 async function getLandFromDataBase(req, res,next) {
     let land;
     let id = req.body.id;
