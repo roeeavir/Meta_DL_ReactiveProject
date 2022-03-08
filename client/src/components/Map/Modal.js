@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getUserToken } from "../Form/Login";
 import { useDispatch } from "react-redux";
-import { getUserByToken, getLands, updateLandPrice, updateLandForSale, updateLandGame } from "../../actions/actions";
+import { getUserByToken, getLands, updateLandPrice, updateLandForSale, updateLandGame ,purchaseLand} from "../../actions/actions";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import makeStyles from "../../components/Form/formStyles";
 
@@ -62,6 +62,12 @@ function Modal(props) {
     e.preventDefault();
 
     dispatch(updateLandGame(postData));
+  };
+
+  const handlePurchase =async (e) => {
+    e.preventDefault();
+    user = await dispatch(getUserByToken(userToken));
+    dispatch(purchaseLand(postData, user.userName, props.landOwner));
   };
 
   function cancelHandler() {
@@ -191,7 +197,7 @@ function Modal(props) {
         <p>For Sale: {props.landForSale}</p>
         <p>Game: {props.landGame}</p>
         {props.landForSale == "Yes" && (
-          <button className="btn btn--alt" onClick={cancelHandler}>
+          <button className="btn btn--alt" onClick={handlePurchase}>
             Buy Land
           </button>
         )}

@@ -1,5 +1,6 @@
 import express from "express";
 import LandModel from "../models/landModel.js"
+import UserModel from "../models/userModel.js"
 import {
   getLands,
   postLand,
@@ -54,6 +55,29 @@ router.patch("/game", getLandFromDataBase, async (req, res) => {
   }
 });
 
+router.patch("/purchase", getLandFromDataBase,getBuyerFromDataBase,getSellerFromDataBase, async (req, res) => {
+  console.log(res);
+  res.land.owner = res.buyer.username;
+  res.land.price = "N/A";
+  res.land.isForSale = false;
+  res.land.game = "N/A";
+  res.seller.cash = res.seller.cash + res.land.price;
+  res.buyer.cash = res.buyer.cash - res.land.price;
+  try {
+    const updatedLand = await res.land.save();
+    const updatedSeller = await res.seller.save();
+    const updatedBuyer = await res.buyer.save();
+    res.json(updatedLand);
+    res.json(updatedSeller);
+    res.json(updatedBuyer);
+  } catch (err) {
+    res.status(400).json({
+      message: err.message
+    });
+  }
+}
+);
+  
 async function getLandFromDataBase(req, res,next) {
     let land;
     let id = req.body.id;
@@ -65,6 +89,34 @@ async function getLandFromDataBase(req, res,next) {
     console.log(error);
   }
   res.land = land;
+  next();
+}
+
+async function getBuyerFromDataBase(req, res,next) {
+  let user;
+  let id = req.body.id;
+  try {
+    user = await UserModel.findOne({
+      id: id,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  res.buyer = user;
+  next();
+}
+
+async function getSellerFromDataBase(req, res,next) {
+  let user;
+  let id = req.body.id;
+  try {
+    user = await UserModel.findOne({
+      id: id,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  res.seller = user;
   next();
 }
 
