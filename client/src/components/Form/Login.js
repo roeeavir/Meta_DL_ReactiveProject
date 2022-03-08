@@ -84,7 +84,7 @@ const Form = () => {
                     setPostData({...postData, userName: e.target.value})
                     saveUserName(e)
                     }}/>
-                <TextField name="password" variant="outlined" label="Password" fullWidth value={postData.password} onChange={(e) => {
+                <TextField name="password" type="password" variant="outlined" label="Password" fullWidth value={postData.password} onChange={(e) => {
                     setPostData({...postData, password: e.target.value})
                     savePassword(e)
                     }
