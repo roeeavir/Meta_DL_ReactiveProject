@@ -27,4 +27,4 @@ export const updateLandForSale = (land) => axios.patch(forSaleUrl, land);
 
 export const updateLandGame = (land) => axios.patch(gameUrl, land);
 
-export const purchaseLand = (land,buyer,seller) => axios.patch(purchaseUrl,land,buyer,seller);
+export const purchaseLand = (land,buyer,seller) => axios.patch(purchaseUrl,land,{params :{buyer :buyer,seller:seller}});
