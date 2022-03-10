@@ -1,4 +1,4 @@
-import axios from 'axios';
+ import axios from 'axios';
 
 const usersUrl = 'http://localhost:5000/users';
 const landsUrl = 'http://localhost:5000/lands';
@@ -27,4 +27,4 @@ export const updateLandForSale = (land) => axios.patch(forSaleUrl, land);
 
 export const updateLandGame = (land) => axios.patch(gameUrl, land);
 
-export const purchaseLand = (land,buyer,seller) => axios.patch(purchaseUrl,land,buyer,seller);
+export const purchaseLand = (land,buyer,seller) => axios.patch(purchaseUrl,land,{params :{buyer :buyer,seller:seller}});
