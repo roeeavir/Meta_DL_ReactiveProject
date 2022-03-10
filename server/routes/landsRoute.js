@@ -15,24 +15,24 @@ router.post("/", postLand);
 //router.patch("/", updateLand);
 
 router.patch("/price", getLandFromDataBase, async (req, res) => {
-    try {
-        if (req.body.price == null || req.body.price == undefined || req.body.price == "" || req.body.price < 0 || parseInt(req.body.price) != req.body.price) {
-          return res.status(400).json({
-            message: "Price is not valid"
-          });
-        }
-        res.land.price = req.body.price;
-        const updatedLand = await res.land.save();
-        res.json(updatedLand);
-    } catch (err) {
-        res.status(400).json({
-            message: err.message
-        });
+  try {
+    if (req.body.price == null || req.body.price == undefined || req.body.price == "" || req.body.price < 0 || parseInt(req.body.price) != req.body.price) {
+      return res.status(400).json({
+        message: "Price is not valid"
+      });
     }
+    res.land.price = req.body.price;
+    const updatedLand = await res.land.save();
+    res.json(updatedLand);
+  } catch (err) {
+    res.status(400).json({
+      message: err.message
+    });
+  }
 });
 
 router.patch("/forSale", getLandFromDataBase, async (req, res) => {
-    res.land.isForSale = req.body.isForSale;
+  res.land.isForSale = req.body.isForSale;
   try {
     const updatedLand = await res.land.save();
     res.json(updatedLand);
@@ -44,6 +44,17 @@ router.patch("/forSale", getLandFromDataBase, async (req, res) => {
 });
 
 router.patch("/game", getLandFromDataBase, async (req, res) => {
+  let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i');
+  if (!pattern.test(req.body.game) && req.body.game != null && req.body.game != undefined && req.body.game != "" && req.body.game != "N/A") {
+    return res.status(400).json({
+      message: "Game is not valid"
+    });
+  }
   res.land.game = req.body.game;
   try {
     const updatedLand = await res.land.save();

@@ -164,7 +164,7 @@ function Modal(props) {
             label="game"
             fullWidth
             onChange={(e) => {
-              setPostData({ ...postData, game: e.target.value });
+              setPostData({ ...postData, game: e.target.value == "" ? "N/A" : e.target.value });
             }}
           />
           <Button
