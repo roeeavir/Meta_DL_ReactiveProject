@@ -151,7 +151,17 @@ function Modal(props) {
             Change For Sale to: {isLandForSaleOption}
           </Button>{" "}
         </form>
-        <p>Game: {props.landGame}</p>
+        <Button
+        color = "secondary"
+        type = "submit"
+        size = "large"
+        width = "50%"
+        >{props.landGame != "N/A" && (
+          <a href={props.landGame} target="_blank">Open Game</a>
+        )}
+        {props.landGame == "N/A" && (
+          <p>No game available</p>
+        )}</Button>
         <form
           autoComplete="off"
           noValidate
