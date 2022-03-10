@@ -55,7 +55,7 @@ const Form = () => {
     })
 
     const clear = () => {
-        setPostData({userName: '', password: ''})
+        handleLogout()
     }
 
     const saveUserName = (e) => {

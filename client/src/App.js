@@ -44,8 +44,8 @@ const App = () => {
                     
             <Grow in>
                 <Container>
-                    <Grid container justifyContent="space-between" alignItems="stretch" spacing={5}>
-                        <Grid className="rowC" justifyContent="space-between" item xs={10} sm={10} alignItems="stretch" spacing={3}>
+                    <Grid container justifyContent="space-between" spacing={5}>
+                        <Grid className="rowC" justifyContent="space-between" item xs={10} sm={10} >
                                 <Grid item xs={1} sm={1}>
                                     <button className="toggle" onClick={toggleForm} >{text}</button>
                                 </Grid>
