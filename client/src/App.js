@@ -42,7 +42,7 @@ const App = () => {
                     
             <Grow in>
                 <Container>
-                    <Grid container justifyContent="space-between" spacing={5}>
+                    <Grid container spacing={5}>
                         <Grid className="rowC" justifyContent="space-between" item xs={10} sm={10} >
                                 <Grid item xs={1} sm={1}>
                                     <button className="toggle" onClick={toggleForm} >{text}</button>
@@ -57,11 +57,7 @@ const App = () => {
                                 <Legend/>
                             </Grid>
                         </Grid>
-
-                        <Grid item xs={12} sm={7}>
-                            <Map />
-                        </Grid>
-
+                        <Map />
                     </Grid>
                 </Container>
             </Grow>

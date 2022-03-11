@@ -197,7 +197,7 @@ function Modal(props) {
             size="large"
             width="50%"
           >
-            Change Game
+            Change Game (HTTP URL)
           </Button>{" "}
         </form>
         <button className="btn btn--alt" onClick={cancelHandler}>

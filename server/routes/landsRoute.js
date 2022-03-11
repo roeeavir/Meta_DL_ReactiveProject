@@ -53,20 +53,11 @@ router.patch("/forSale", getLandFromDataBase, async (req, res) => {
 
 router.patch("/game", getLandFromDataBase, async (req, res) => {
   let pattern = new RegExp(
-    "^(https?:\\/\\/)?" + // protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$",
-    "i"
-  );
+    /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/)
   if (
-    !pattern.test(req.body.game) &&
-    req.body.game != null &&
-    req.body.game != undefined &&
+    !pattern.test(req.body.game) && 
     req.body.game != "" &&
-    req.body.game != "N/A"
+    req.body.game != "N/A" 
   ) {
     return res.status(400).json({
       message: "Game is not valid",
