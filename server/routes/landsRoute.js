@@ -67,7 +67,11 @@ router.patch("/game", getLandFromDataBase, async (req, res) => {
 });
 
 router.patch("/purchase", getLandFromDataBase, getBuyerFromDataBaseByUserName, getSellerFromDataBaseByUserName, async (req, res) => {
-
+  if (res.buyer == null) {
+    return res.status(400).json({
+      message: "Buyer is not valid"
+    });
+  }
 
   res.land.owner = res.buyer.userName;
   res.land.price = "N/A";
@@ -76,16 +80,6 @@ router.patch("/purchase", getLandFromDataBase, getBuyerFromDataBaseByUserName, g
   try {
     const updatedLand = await res.land.save();
     res.json(updatedLand);
-    // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$")
-    // const updatedSeller = await res.seller.save();
-    // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$")
-    // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$")
-    // res.json(updatedSeller);
-    // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$")
-    // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$")
-    // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$")
-    // const updatedBuyer = await res.buyer.save();
-    // res.json(updatedBuyer);
 
   } catch (err) {
     res.status(402).json({
@@ -112,30 +106,17 @@ async function getLandFromDataBase(req, res, next) {
 async function getSellerFromDataBaseByUserName(req, res, next) {
   let user;
   let userName = req.query.seller;
-  // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$")
-  // console.log(req)
-  // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$")
-  // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$")
-  // console.log(req.body.price)
-  // console.log(user.cash)
-  // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$")
   try {
     user = await UserModel.findOne({
       userName: userName,
     });
+    user.cash = parseInt(user.cash) + parseInt(req.body.price);
+    user.save();
   } catch (error) {
     console.log(error);
   }
   res.seller = user;
   next();
-  try{
-  await UserModel.findOneAndUpdate({
-    userName: userName,
-    cash : parseInt(user.cash) + parseInt(req.body.price),
-  });
-  }catch(error){
-    console.log(error);
-  }
 }
 
 async function getBuyerFromDataBaseByUserName(req, res, next) {
@@ -147,20 +128,18 @@ async function getBuyerFromDataBaseByUserName(req, res, next) {
       userName: userName,
     });
     user.cash = parseInt(user.cash) - parseInt(req.body.price);
+    if(user.cash < 0){
+      res.buyer = null
+      return res.status(402).json({
+        message: "Not enough cash"
+      });
+    }
     user.save();
   } catch (error) {
     console.log(error);
   }
   res.buyer = user;
   next();
-  // try{
-  //   await UserModel.findOneAndUpdate({
-  //     userName: userName,
-  //     cash : parseInt(user.cash) - parseInt(req.body.price),
-  //   });
-  //   }catch(error){
-  //     console.log(error);
-  //   }
 }
 
 export default router;
