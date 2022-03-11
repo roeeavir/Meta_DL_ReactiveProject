@@ -12,9 +12,9 @@ const purchaseUrl = 'http://localhost:5000/lands/purchase';
 
 
 export const fetchPosts = () => axios.get(usersUrl);
+
 export const createPost = (newPost) => axios.post(signUp, newPost);
-// export const fetchUser = (user) => axios.get(loginUrl + "userName", user.userName);
-// export const fetchUser = (user) => axios.get(`${usersUrl}/${user.userName}`, {params: {password: user.password}});
+
 export const fetchUser = (user) => axios.post(`${loginUrl}`, user);
 
 export const fetchLands = () => axios.get(landsUrl);

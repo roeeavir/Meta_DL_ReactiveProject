@@ -1,24 +1,27 @@
 import express from "express";
-import LandModel from "../models/landModel.js"
-import UserModel from "../models/userModel.js"
+import LandModel from "../models/landModel.js";
+import UserModel from "../models/userModel.js";
 import {
   getLands,
   postLand,
-  updateLand,
 } from "../controllers/landsController.js";
 
 const router = express.Router();
-// const Land = require('../models/site');
 
 router.get("/", getLands);
 router.post("/", postLand);
-//router.patch("/", updateLand);
 
 router.patch("/price", getLandFromDataBase, async (req, res) => {
   try {
-    if (req.body.price == null || req.body.price == undefined || req.body.price == "" || req.body.price < 0 || parseInt(req.body.price) != req.body.price) {
+    if (
+      req.body.price == null ||
+      req.body.price == undefined ||
+      req.body.price == "" ||
+      req.body.price < 0 ||
+      parseInt(req.body.price) != req.body.price
+    ) {
       return res.status(400).json({
-        message: "Price is not valid"
+        message: "Price is not valid",
       });
     }
     res.land.price = req.body.price;
@@ -26,7 +29,7 @@ router.patch("/price", getLandFromDataBase, async (req, res) => {
     res.json(updatedLand);
   } catch (err) {
     res.status(400).json({
-      message: err.message
+      message: err.message,
     });
   }
 });
@@ -38,21 +41,30 @@ router.patch("/forSale", getLandFromDataBase, async (req, res) => {
     res.json(updatedLand);
   } catch (err) {
     res.status(400).json({
-      message: err.message
+      message: err.message,
     });
   }
 });
 
 router.patch("/game", getLandFromDataBase, async (req, res) => {
-  let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-    '(\\#[-a-z\\d_]*)?$','i');
-  if (!pattern.test(req.body.game) && req.body.game != null && req.body.game != undefined && req.body.game != "" && req.body.game != "N/A") {
+  let pattern = new RegExp(
+    "^(https?:\\/\\/)?" + // protocol
+      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+      "(\\#[-a-z\\d_]*)?$",
+    "i"
+  );
+  if (
+    !pattern.test(req.body.game) &&
+    req.body.game != null &&
+    req.body.game != undefined &&
+    req.body.game != "" &&
+    req.body.game != "N/A"
+  ) {
     return res.status(400).json({
-      message: "Game is not valid"
+      message: "Game is not valid",
     });
   }
   res.land.game = req.body.game;
@@ -61,32 +73,37 @@ router.patch("/game", getLandFromDataBase, async (req, res) => {
     res.json(updatedLand);
   } catch (err) {
     res.status(400).json({
-      message: err.message
+      message: err.message,
     });
   }
 });
 
-router.patch("/purchase", getLandFromDataBase, getBuyerFromDataBaseByUserName, getSellerFromDataBaseByUserName, async (req, res) => {
-  if (res.buyer == null) {
-    return res.status(400).json({
-      message: "Buyer is not valid"
-    });
-  }
+router.patch(
+  "/purchase",
+  getLandFromDataBase,
+  getBuyerFromDataBaseByUserName,
+  getSellerFromDataBaseByUserName,
+  async (req, res) => {
+    if (res.buyer == null) {
+      return res.status(400).json({
+        message: "Buyer is not valid",
+      });
+    }
 
-  res.land.owner = res.buyer.userName;
-  res.land.price = "N/A";
-  res.land.isForSale = false;
-  res.land.game = "N/A";
-  try {
-    const updatedLand = await res.land.save();
-    res.json(updatedLand);
-
-  } catch (err) {
-    res.status(402).json({
-      message: err.message
-    });
+    res.land.owner = res.buyer.userName;
+    res.land.price = "N/A";
+    res.land.isForSale = false;
+    res.land.game = "N/A";
+    try {
+      const updatedLand = await res.land.save();
+      res.json(updatedLand);
+    } catch (err) {
+      res.status(402).json({
+        message: err.message,
+      });
+    }
   }
-});
+);
 
 async function getLandFromDataBase(req, res, next) {
   let land;
@@ -101,7 +118,6 @@ async function getLandFromDataBase(req, res, next) {
   res.land = land;
   next();
 }
-
 
 async function getSellerFromDataBaseByUserName(req, res, next) {
   let user;
@@ -120,7 +136,6 @@ async function getSellerFromDataBaseByUserName(req, res, next) {
 }
 
 async function getBuyerFromDataBaseByUserName(req, res, next) {
-
   let user;
   let userName = req.query.buyer;
   try {
@@ -128,10 +143,10 @@ async function getBuyerFromDataBaseByUserName(req, res, next) {
       userName: userName,
     });
     user.cash = parseInt(user.cash) - parseInt(req.body.price);
-    if(user.cash < 0){
-      res.buyer = null
+    if (user.cash < 0) {
+      res.buyer = null;
       return res.status(402).json({
-        message: "Not enough cash"
+        message: "Not enough cash",
       });
     }
     user.save();

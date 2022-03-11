@@ -1,15 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import { Grid } from '@material-ui/core';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import Land from './Land/Land';
-import makeStyles from './mapStyles'
+
 import './styles.css'
 
 const Map = () => {
     const lands = useSelector((state) => state.reducer);
-    const classes = makeStyles()
 
-    console.log("Map data: ", lands);
 
     if (lands.length != 10000) {
         return (

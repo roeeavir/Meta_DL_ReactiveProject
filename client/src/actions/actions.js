@@ -31,7 +31,6 @@ export const createPost = (post) => async (dispatch) => {
 
 export const getUser = (user) => async (dispatch) => {
   try {
-    console.log("user: ", user);
     const { data } = await api.fetchUser(user);
 
     dispatch({
@@ -59,7 +58,6 @@ export const getLands = () => async (dispatch) => {
 
 export const getUserByToken = (token) => async (dispatch) => {
   try {
-    console.log("SHIKSE: ", token);
     const { data } = await api.fetchUserByToken(token);
 
     dispatch({
@@ -73,10 +71,8 @@ export const getUserByToken = (token) => async (dispatch) => {
 };
 
 export const updateLandPrice = (land) => async (dispatch) => {
-  
   try {
     const { data } = await api.updateLandPrice(land);
-    console.log("land: ", land);
     dispatch({
       type: "UPDATE",
       payload: data,
@@ -87,54 +83,43 @@ export const updateLandPrice = (land) => async (dispatch) => {
 };
 
 export const updateLandForSale = (land) => async (dispatch) => {
-
   try {
-    const {
-      data
-    } = await api.updateLandForSale(land);
-    console.log("land: ", land);
+    const { data } = await api.updateLandForSale(land);
     dispatch({
       type: "UPDATE",
       payload: data,
     });
-    return true
+    return true;
   } catch (error) {
     console.log(error.message);
-    return false
+    return false;
   }
 };
 
 export const updateLandGame = (land) => async (dispatch) => {
-
   try {
-    const {
-      data
-    } = await api.updateLandGame(land);
-    console.log("land: ", land);
+    const { data } = await api.updateLandGame(land);
     dispatch({
       type: "UPDATE",
       payload: data,
     });
-    return true
+    return true;
   } catch (error) {
     console.log(error.message);
-    return false
+    return false;
   }
 };
 
-export const purchaseLand = (land,buyer,seller) => async (dispatch) => {
-  
-    try {
-      const {
-        data
-      } = await api.purchaseLand(land,buyer,seller);
-      dispatch({
-        type: "UPDATE",
-        payload: data,
-      });
-      return true
-    } catch (error) {
-      console.log(error.message);
-      return false
-    }
-  };
+export const purchaseLand = (land, buyer, seller) => async (dispatch) => {
+  try {
+    const { data } = await api.purchaseLand(land, buyer, seller);
+    dispatch({
+      type: "UPDATE",
+      payload: data,
+    });
+    return true;
+  } catch (error) {
+    console.log(error.message);
+    return false;
+  }
+};

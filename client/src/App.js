@@ -3,13 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core'
 import { useDispatch } from "react-redux";
 
-import { getPosts, getLands } from './actions/actions'
+import { getPosts} from './actions/actions'
 import Map from './components/Map/Map'
 import Register from './components/Form/Register'
 import Login from './components/Form/Login'
 import Legend from './components/Legend/Legend'
 import memories from './images/memories.jpeg'
-import pic from './images/pic.jpg'
 import makeStyles from './appStyles'
 import './styles.css'
 
@@ -21,7 +20,6 @@ const App = () => {
     const [action, setAction] = useState("Users");
 
     useEffect(() => {
-        console.log("getPosts")
         dispatch(getPosts())
         setAction("Posts")
     }, [dispatch])

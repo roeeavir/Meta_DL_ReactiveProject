@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
-import FileBase from 'react-file-base64';
 import { useDispatch } from 'react-redux';
 import makeStyles from './formStyles'
 import { getUser, getPosts, getLands } from '../../actions/actions'
@@ -13,7 +12,6 @@ export function getUserToken() {
 
 async function setUserToken(token) {
     userToken = token
-    console.log("User Token: ", token)
 }
 
 
@@ -34,7 +32,6 @@ const Form = () => {
             if (loginRes) {
                 setToken(loginRes.token);
                 setUserToken(loginRes.token);
-                console.log("Token: ", loginRes);
                 dispatch(getLands())
             }
         })
