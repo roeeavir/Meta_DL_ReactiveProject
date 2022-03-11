@@ -35,6 +35,11 @@ router.patch("/price", getLandFromDataBase, async (req, res) => {
 });
 
 router.patch("/forSale", getLandFromDataBase, async (req, res) => {
+  if (req.body.type == "park" || req.body.type == "road") {
+      return res.status(400).json({
+        message: "Cannot set parks or roads"
+      });
+  }
   res.land.isForSale = req.body.isForSale;
   try {
     const updatedLand = await res.land.save();

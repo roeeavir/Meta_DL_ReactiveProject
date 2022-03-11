@@ -91,7 +91,7 @@ const Form = () => {
             </form>
             <div style={{ display: show ? "none" : "block" }}>
                 <Button className={classes.buttonSubmit} variant="contained" color="primary" onClick={handleLogout} size="large"  fullWidth>Logout</Button>
-                {text == "Login as Guest" ? "Logged in as a guest" : "Logged in as " + userName}
+                <p>{text == "Login as Guest" ? "Logged in as a guest" : "Logged in as " + userName}{userName == "L&R.Ltd" && " (Metaverse Owner)"}</p>
             </div>
 
         </Paper>

@@ -38,7 +38,7 @@ function Modal(props) {
     }
     
     setIsLandForSaleOption(props.landForSale == "No" ? "Yes" : "No");
-  }, []);
+  }, [, props.landOwner, props.landForSale]);
 
   const handleSubmitPrice = (e) => {
     e.preventDefault();
@@ -67,7 +67,7 @@ function Modal(props) {
   const handlePurchase =async (e) => {
     e.preventDefault();
     user = await dispatch(getUserByToken(userToken));
-    dispatch(purchaseLand(postData, user, props.landOwner));
+    dispatch(purchaseLand(postData, user.userName, props.landOwner));
   };
 
   function cancelHandler() {
