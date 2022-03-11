@@ -67,7 +67,7 @@ function Modal(props) {
   const handlePurchase =async (e) => {
     e.preventDefault();
     user = await dispatch(getUserByToken(userToken));
-    dispatch(purchaseLand(postData, user.userName, props.landOwner));
+    dispatch(purchaseLand(postData, user, props.landOwner));
   };
 
   function cancelHandler() {
@@ -88,7 +88,18 @@ function Modal(props) {
         <p>Owner: {props.landOwner}</p>
         <p>Price: {props.landPrice}</p>
         <p>For Sale: {props.landForSale}</p>
-        <p>Game: {props.landGame}</p>
+        <Button
+        color = "secondary"
+        type = "submit"
+        size = "large"
+        width = "50%"
+        >{props.landGame != "N/A" && (
+          <a href={props.landGame} target="_blank">Open Game</a>
+        )}
+        {props.landGame == "N/A" && (
+          <p>No game available</p>
+        )}</Button>
+        <br />
         <button className="btn btn--alt" onClick={cancelHandler}>
           Cancel
         </button>
@@ -162,6 +173,7 @@ function Modal(props) {
         {props.landGame == "N/A" && (
           <p>No game available</p>
         )}</Button>
+        <br />
         <form
           autoComplete="off"
           noValidate
@@ -205,7 +217,18 @@ function Modal(props) {
         <p>Owner: {props.landOwner}</p>
         <p>Price: {props.landPrice}</p>
         <p>For Sale: {props.landForSale}</p>
-        <p>Game: {props.landGame}</p>
+        <Button
+        color = "secondary"
+        type = "submit"
+        size = "large"
+        width = "50%"
+        >{props.landGame != "N/A" && (
+          <a href={props.landGame} target="_blank">Open Game</a>
+        )}
+        {props.landGame == "N/A" && (
+          <p>No game available</p>
+        )}</Button>
+        <br />
         {props.landForSale == "Yes" && (
           <button className="btn btn--alt" onClick={handlePurchase}>
             Buy Land

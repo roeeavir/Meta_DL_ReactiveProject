@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import makeStyles from "./landStyles";
 import Backdrop from "../Backdrop.js";
 import Modal from "../Modal.js";
 import { getColors } from "../../Legend/Legend";
 
 const Land = ({ post }) => {
-  const classes = makeStyles();
-  const colors = getColors;
+  const colors = getColors();
   let currentColor = setLandColor();
   let hasGame = post.game != "N/A" ? true : false;
   const [modalIsOpen, setModalIsOpen] = useState();
+  
 
   function deleteHandler() {
     setModalIsOpen(true);
@@ -22,15 +21,14 @@ const Land = ({ post }) => {
   function setLandColor() {
     if (post.type === "nland") {
       if (post.isForSale){
-        return "red";
+        return colors.nland;
       } else {
-        return "pink";
+        return colors.nland_notForSale;
       }
-      return colors.nland;
     } else if (post.type === "park") {
-      return "green"
+      return colors.park
     } else if (post.type === "road") {
-      return "grey"
+      return colors.road
     }
   }
 

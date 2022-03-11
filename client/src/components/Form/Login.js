@@ -92,7 +92,11 @@ const Form = () => {
                 <Button className={classes.buttonSubmit} variant="contained" color="primary" type="submit" size="large" fullWidth>{text}</Button>
                 <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
             </form>
-            <Button className={classes.buttonSubmit} variant="contained" color="primary" onClick={handleLogout} size="large" style={{ display: show ? "none" : "block" }} fullWidth>Logout</Button>
+            <div style={{ display: show ? "none" : "block" }}>
+                <Button className={classes.buttonSubmit} variant="contained" color="primary" onClick={handleLogout} size="large"  fullWidth>Logout</Button>
+                {text == "Login as Guest" ? "Logged in as a guest" : "Logged in as " + userName}
+            </div>
+
         </Paper>
 
     )
