@@ -13,6 +13,7 @@ const Register = () => {
         e.preventDefault()
         dispatch(getPosts())
         dispatch(createPost(postData))
+        clear()
     }
 
     const clear = () => {
@@ -25,7 +26,7 @@ const Register = () => {
                 <Typography variant='h6'>Creating a User</Typography>
                 <TextField name="userName" variant="outlined" label="UserName" fullWidth value={postData.userName} onChange={(e) => setPostData({...postData, userName: e.target.value})}/>
                 <TextField name="password" variant="outlined" type="password" label="Password" fullWidth value={postData.password} onChange={(e) => setPostData({...postData, password: e.target.value})}/>
-                <Button className={classes.buttonSubmit} variant="contained" color="primary" type="submit" size="large" fullWidth>Register</Button>
+                <Button className={classes.buttonSubmit} variant="contained" color="primary" type="submit"  size="large" fullWidth>Register</Button>
                 <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
             </form>
         </Paper>

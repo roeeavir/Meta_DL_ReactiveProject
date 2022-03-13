@@ -24,6 +24,7 @@ export const createPost = (post) => async (dispatch) => {
       type: "CREATE",
       payload: data,
     });
+    alert("User created successfully");
   } catch (error) {
     console.log(error.message);
   }

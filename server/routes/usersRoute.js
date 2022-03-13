@@ -113,7 +113,6 @@ router.post("/login", async (req, res) => {
       return res.status(403).json({
         message: "Incorrect Password !",
       });
-
     const payload = {
       user: {
         id: user.id,
